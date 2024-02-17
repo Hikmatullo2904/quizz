@@ -18,9 +18,4 @@ public class PictureController {
         return pictureService.get(id);
 
     }
-
-    @PostMapping
-    public void save(@RequestBody MultipartFile file) {
-        pictureService.save(file);
-    }
 }
