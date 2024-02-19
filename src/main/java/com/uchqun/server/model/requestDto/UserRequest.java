@@ -1,5 +1,8 @@
 package com.uchqun.server.model.requestDto;
 
+import com.uchqun.server.model.enums.Role;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,4 +19,7 @@ public class UserRequest {
 
     @NotBlank
     private String password;
+
+    @Enumerated(EnumType.STRING)
+    private Role role;
 }

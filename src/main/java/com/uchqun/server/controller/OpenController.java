@@ -30,7 +30,7 @@ public class OpenController {
     }
 
     @GetMapping("/{id}")
-    public List<QuestionResponse> getTestItemList(@PathVariable Long id) {
+    public List<QuestionResponse> getQuestionList(@PathVariable Long id) {
         return quizService.getQuestionList(id);
     }
 

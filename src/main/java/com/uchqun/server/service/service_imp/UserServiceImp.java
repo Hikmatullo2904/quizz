@@ -10,6 +10,7 @@ import com.uchqun.server.repository.UserRepository;
 import com.uchqun.server.service.interfaces.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
@@ -22,6 +23,8 @@ import java.util.function.Function;
 public class UserServiceImp implements UserService {
     private final UserRepository userRepository;
 
+    private final PasswordEncoder passwordEncoder;
+
     @Override
     public ApiResponse save(UserRequest user) {
         Optional<User> byUsername = userRepository.findByUsername(user.getUsername());
@@ -33,7 +36,7 @@ public class UserServiceImp implements UserService {
         if(user.getLastName() != null)
             newUser.setLastName(user.getLastName());
         newUser.setUsername(user.getUsername());
-        newUser.setPassword(user.getPassword());
+        newUser.setPassword(passwordEncoder.encode(user.getPassword()));
         newUser.setRole(Role.TEACHER);
         userRepository.save(newUser);
         return new ApiResponse("User created", HttpStatus.OK);
