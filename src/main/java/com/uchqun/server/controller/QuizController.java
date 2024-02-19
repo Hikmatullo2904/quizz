@@ -1,9 +1,8 @@
 package com.uchqun.server.controller;
 
-import com.uchqun.server.config.service.CustomUserDetails;
+import com.uchqun.server.model.entity.User;
 import com.uchqun.server.model.requestDto.QuestionRequest;
 import com.uchqun.server.model.requestDto.QuizRequest;
-import com.uchqun.server.model.responseDto.QuestionResponse;
 import com.uchqun.server.model.responseDto.QuizResponse;
 import com.uchqun.server.payload.ApiResponse;
 import com.uchqun.server.service.interfaces.QuizService;
@@ -28,14 +27,19 @@ public class QuizController {
 
 
     @GetMapping("/teacher")
-    public List<QuizResponse> getTestByTeacherId(@CurrentUser CustomUserDetails userDetails) {
-        return quizService.getQuizByTeacherId(userDetails.getId());
+    public List<QuizResponse> getTestByTeacherId(@CurrentUser User user) {
+        return quizService.getQuizByTeacherId(user.getId());
+    }
+
+    @GetMapping("/{id}")
+    public QuizResponse getQuizById(@PathVariable Long id) {
+        return quizService.getQuizById(id);
     }
 
 
     @PostMapping
-    public ApiResponse save(@CurrentUser CustomUserDetails userDetails, @RequestBody QuizRequest quizRequest) {
-        return quizService.createQuiz(userDetails.getId(), quizRequest);
+    public ApiResponse save(@CurrentUser User user , @RequestBody QuizRequest quizRequest) {
+        return quizService.createQuiz(user.getId(), quizRequest);
     }
 
 

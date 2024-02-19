@@ -22,4 +22,6 @@ public interface QuizService {
     ApiResponse updateQuestion(Long id, QuestionRequest questionRequest);
 
     ApiResponse toggleVisible(Long id);
+
+    QuizResponse getQuizById(Long id);
 }

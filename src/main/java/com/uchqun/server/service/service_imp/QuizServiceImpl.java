@@ -153,4 +153,10 @@ public class QuizServiceImpl implements QuizService {
         quizRepository.save(quiz);
         return new ApiResponse("updated successfully", HttpStatus.OK);
     }
+
+    @Override
+    public QuizResponse getQuizById(Long id) {
+        Quiz quiz = getTestById(id);
+        return mapper.mapToQuizResponse(quiz);
+    }
 }

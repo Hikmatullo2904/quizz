@@ -1,6 +1,6 @@
 package com.uchqun.server.controller;
 
-import com.uchqun.server.config.service.CustomUserDetails;
+import com.uchqun.server.model.entity.User;
 import com.uchqun.server.model.requestDto.UserRequest;
 import com.uchqun.server.model.responseDto.UserResponse;
 import com.uchqun.server.payload.ApiResponse;
@@ -20,8 +20,8 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping("/me")
-    public UserResponse me(@CurrentUser CustomUserDetails userDetails) {
-        return userService.findOne(userDetails.getId());
+    public UserResponse me(@CurrentUser User user) {
+        return userService.findOne(user.getId());
     }
     @GetMapping("/{id}")
     public UserResponse findOne(@PathVariable Long id) {
