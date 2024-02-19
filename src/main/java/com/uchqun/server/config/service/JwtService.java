@@ -24,8 +24,12 @@ public class JwtService {
 
 
 
-    public String generateToken(UserDetails userDetails) {
+    public String generateRefreshToken(UserDetails userDetails) {
         long refreshTokenExpiration = 86400000 * 7;
+        return buildToken(new HashMap<>(), userDetails, refreshTokenExpiration);
+    }
+    public String generateAccessToken(UserDetails userDetails) {
+        long refreshTokenExpiration = 60 * 1000 * 30;
         return buildToken(new HashMap<>(), userDetails, refreshTokenExpiration);
     }
 

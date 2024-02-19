@@ -1,35 +1,13 @@
 
 spring:
-  main:
-    allow-circular-references: true
   datasource:
-    url: jdbc:postgresql://localhost:5432/migration_sample
+    url: jdbc:postgresql://localhost:5432/quiz
     username: postgres
     password: 1133
-  sql:
-    init:
-      mode: never
   jpa:
     show-sql: true
     hibernate:
       ddl-auto: create
-  security:
-    oauth2:
-      client:
-        registration:
-          github:
-            client-secret: d3657d21c8b883acc952f0e6e14819ae03854073
-            client-id: 5dbe034e32555dde7417
-            redirect-uri: "{baseUrl}/oauth2/callback/{registrationId}"
-            scope:
-              - profile
-          google:
-            client-id: 720597162772-j6fnk1ttmgta19ulbkad6qp7iuji81sq.apps.googleusercontent.com
-            client-secret: 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
-            redirect-uri: "{baseUrl}/oauth2/callback/{registrationId}"
-            scope:
-              - email
-              - profile
 
 image:
   get:

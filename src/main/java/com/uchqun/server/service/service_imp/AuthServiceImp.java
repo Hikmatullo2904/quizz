@@ -35,11 +35,14 @@ public class AuthServiceImp implements AuthService {
 
 
         UserDetails userDetails = userDetailsService.loadUserByUsername(loginRequest.getUsername());
-        String token = jwtService.generateToken(userDetails);
+        String refreshToken = jwtService.generateRefreshToken(userDetails);
+        String accessToken = jwtService.generateAccessToken(userDetails);
 
-        return new JwtResponse(token);
+        return new JwtResponse(accessToken, refreshToken);
 
     }
+
+
 
 
 
