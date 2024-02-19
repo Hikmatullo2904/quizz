@@ -49,8 +49,7 @@ public class QuizServiceImpl implements QuizService {
     private Question makeQuestion(QuestionRequest teq, Quiz quiz) {
         Question question = new Question();
         question.setQuestion(teq.getQuestion());
-        pictureService.delete(question.getPicture().getId());
-        question.setPicture(pictureService.save(teq.getPictureBase64()));
+        question.setPicture(pictureService.save(teq.getPicture()));
         if (checkVariants(teq.getOptions())) {
             throw new CustomBadRequestException("there is a problem with correct answers");
         }

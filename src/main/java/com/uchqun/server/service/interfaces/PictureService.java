@@ -11,4 +11,5 @@ public interface PictureService {
     void delete(Long id);
 
     ResponseEntity<Resource> get(Long id);
+    Picture save(MultipartFile image);
 }

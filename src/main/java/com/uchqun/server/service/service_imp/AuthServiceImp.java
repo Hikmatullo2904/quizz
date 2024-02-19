@@ -15,6 +15,14 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.Base64;
+
 @Service
 @RequiredArgsConstructor
 public class AuthServiceImp implements AuthService {
@@ -46,7 +54,29 @@ public class AuthServiceImp implements AuthService {
 
     }
 
+    private  String convertImageToBase64(String imagePath) {
+        try {
+            BufferedImage image = ImageIO.read(new File(imagePath));
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            ImageIO.write(image, "png", baos);
+            byte[] imageBytes = baos.toByteArray();
+            return Base64.getEncoder().encodeToString(imageBytes);
+        } catch (IOException e) {
+            return null;
+        }
+    }
 
+    private  void saveBase64ImageToFile(String base64Image, String outputFilePath) {
+        try {
+            byte[] imageBytes = Base64.getDecoder().decode(base64Image);
+            FileOutputStream fos = new FileOutputStream(outputFilePath);
+            fos.write(imageBytes);
+            fos.close();
+            System.out.println("Image saved as file: " + outputFilePath);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 
 

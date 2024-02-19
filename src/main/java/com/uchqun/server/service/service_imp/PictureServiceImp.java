@@ -19,10 +19,12 @@ import org.springframework.web.multipart.MultipartFile;
 import org.yaml.snakeyaml.util.UriEncoder;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.time.LocalDate;
 import java.util.Base64;
@@ -36,6 +38,37 @@ public class PictureServiceImp implements PictureService {
 
     @Value("${server.upload.url}")
     private String uploadUrl;
+
+    public Picture save(MultipartFile image)  {
+        Picture picture = new Picture();
+        picture.setName(image.getOriginalFilename());
+        picture.setType(image.getContentType());
+        LocalDate now = LocalDate.now();
+        String path = uploadUrl + "/picture/%d/%d/%d".formatted(now.getYear(),
+                now.getMonthValue(), now.getDayOfMonth());
+
+        Path directory = Paths.get(path);
+        if (!Files.exists(directory)) {
+            try {
+                Files.createDirectories(directory);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        picture = pictureRepository.save(picture);
+
+        String filePath = path + picture.getId() + "$" + image.getOriginalFilename();
+        try (FileOutputStream fos = new FileOutputStream(filePath)) {
+            fos.write(image.getBytes());
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to save compressed image to the server", e);
+        }
+
+        picture.setPath(filePath);
+        return pictureRepository.save(picture);
+
+
+    }
 
     public Picture save(String base64picture) {
         if(base64picture == null) {

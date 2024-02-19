@@ -90,15 +90,7 @@ public class Mapper {
         return quizResponse;
     }
 
-    public List<StudentQuizResponse> mapToStudentQuizResponseList(List<Quiz> quizzes) {
-        if(quizzes == null || quizzes.isEmpty()) {
-            return new ArrayList<>();
-        }
-        return quizzes
-                .stream()
-                .map(this::mapToQuizResponse)
-                .toList();
-    }
+
 
 
     public QuestionResponse mapToQuestionResponse(Question question) {

@@ -17,7 +17,5 @@ public class UserResponse {
 
     private String username;
 
-    private List<QuizResponse> quizResponseList;
-
     private Role role;
 }
