@@ -25,19 +25,19 @@ public class AuthServiceImp implements AuthService {
     public JwtResponse register(UserRequest userRequest) {
         userService.save(userRequest);
 
-        return authenticate(new LoginRequest(userRequest.getEmail(), userRequest.getPassword()));
+        return authenticate(new LoginRequest(userRequest.getUsername(), userRequest.getPassword()));
     }
 
     @Override
     public JwtResponse authenticate(LoginRequest loginRequest) {
         authenticationProvider.authenticate(new
-                UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
+                UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
 
 
-        UserDetails userDetails = userDetailsService.loadUserByUsername(loginRequest.getEmail());
-        String refreshToken = jwtService.generateToken(userDetails);
+        UserDetails userDetails = userDetailsService.loadUserByUsername(loginRequest.getUsername());
+        String token = jwtService.generateToken(userDetails);
 
-        return new JwtResponse(refreshToken);
+        return new JwtResponse(token);
 
     }
 

@@ -8,13 +8,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 
 @Getter
 @Setter
@@ -32,7 +28,7 @@ public class User  {
     private String lastName;
 
     @Column(nullable = false, unique = true)
-    private String email;
+    private String username;
 
     @NotNull
     @Pattern(regexp = "^.{8,}$", message = "Invalid password")
@@ -42,6 +38,7 @@ public class User  {
     private List<Quiz> quizzes = new ArrayList<>();
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false, columnDefinition = "varchar(55) default 'USER'")
     private Role role;
 
 }

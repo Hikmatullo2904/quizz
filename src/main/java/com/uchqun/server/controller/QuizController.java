@@ -1,6 +1,7 @@
 package com.uchqun.server.controller;
 
 import com.uchqun.server.config.service.CustomUserDetails;
+import com.uchqun.server.model.requestDto.QuestionRequest;
 import com.uchqun.server.model.requestDto.QuizRequest;
 import com.uchqun.server.model.responseDto.QuestionResponse;
 import com.uchqun.server.model.responseDto.QuizResponse;
@@ -55,6 +56,16 @@ public class QuizController {
     @PutMapping("/{id}")
     public ApiResponse update(@PathVariable Long id, @RequestBody QuizRequest quizRequest) {
         return quizService.updateQuiz(id, quizRequest);
+    }
+
+    @PutMapping("/{id}/question")
+    public ApiResponse updateQuestion(@PathVariable Long id, @RequestBody QuestionRequest questionRequest) {
+        return quizService.updateQuestion(id, questionRequest);
+    }
+
+    @PatchMapping("/{id}/visible-toggle")
+    public ApiResponse toggleVisible(@PathVariable Long id) {
+        return quizService.toggleVisible(id);
     }
 
     @DeleteMapping("/{id}")

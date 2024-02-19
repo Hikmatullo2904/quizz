@@ -24,19 +24,17 @@ public class UserServiceImp implements UserService {
 
     @Override
     public ApiResponse save(UserRequest user) {
-        Optional<User> byEmail = userRepository.findByEmail(user.getEmail());
-        if(byEmail.isPresent()){
-            return new ApiResponse("User already exist", HttpStatus.CONFLICT);
-        }
         User newUser = new User();
-        newUser.setFirstName(user.getFirstName());
-        if(user.getLastName() != null)
-             newUser.setLastName(user.getLastName());
-        newUser.setEmail(user.getEmail());
-        newUser.setPassword(user.getPassword());
-        newUser.setRole(Role.USER);
-        userRepository.save(newUser);
-        return new ApiResponse("User created", HttpStatus.OK);
+        return saveUser(user, newUser);
+    }
+
+
+
+    @Override
+    public ApiResponse saveTeacher(UserRequest user) {
+        User newUser = new User();
+        newUser.setRole(Role.ADMIN);
+        return saveUser(user, newUser);
     }
 
     @Override
@@ -66,12 +64,22 @@ public class UserServiceImp implements UserService {
         oldUser.setFirstName(user.getFirstName());
         if(user.getLastName() != null)
             oldUser.setLastName(user.getLastName());
-        oldUser.setEmail(user.getEmail());
+        oldUser.setUsername(user.getUsername());
         userRepository.save(oldUser);
         return new ApiResponse("User updated", HttpStatus.OK);
     }
 
 
+
+
+    @Override
+    public ApiResponse delete(Long id) {
+        if(userRepository.existsById(id)){
+            userRepository.deleteById(id);
+            return new ApiResponse("User deleted", HttpStatus.OK);
+        }
+        throw new CustomNotFoundException("User not found");
+    }
 
     private List<UserResponse> mapToUserResponseDtoList(List<User> users) {
         if (users == null) {
@@ -89,9 +97,23 @@ public class UserServiceImp implements UserService {
             userResponse.setId(user.getId());
             userResponse.setFirstName(user.getFirstName());
             userResponse.setLastName(user.getLastName());
-            userResponse.setEmail(user.getEmail());
+            userResponse.setUsername(user.getUsername());
             userResponse.setRole(user.getRole());
             return userResponse;
         };
+    }
+
+    private ApiResponse saveUser(UserRequest user, User newUser) {
+        Optional<User> byUsername = userRepository.findByUsername(user.getUsername());
+        if(byUsername.isPresent()){
+            return new ApiResponse("User already exist", HttpStatus.CONFLICT);
+        }
+        newUser.setFirstName(user.getFirstName());
+        if(user.getLastName() != null)
+            newUser.setLastName(user.getLastName());
+        newUser.setUsername(user.getUsername());
+        newUser.setPassword(user.getPassword());
+        userRepository.save(newUser);
+        return new ApiResponse("User created", HttpStatus.OK);
     }
 }

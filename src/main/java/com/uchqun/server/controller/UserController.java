@@ -36,10 +36,20 @@ public class UserController {
     public ApiResponse save(@Valid  @RequestBody UserRequest userRequest) {
         return userService.save(userRequest);
     }
+    @PostMapping("/save-teacher")
+    public ApiResponse saveTeacher(@Valid @RequestBody UserRequest userRequest) {
+        return userService.saveTeacher(userRequest);
+    }
 
     @PutMapping("/{id}")
     public ApiResponse update(@PathVariable Long id, @Valid @RequestBody UserRequest userRequest) {
         return userService.update(id, userRequest);
+    }
+
+
+    @DeleteMapping("/{id}")
+    public ApiResponse delete(@PathVariable Long id) {
+        return userService.delete(id);
     }
 
 

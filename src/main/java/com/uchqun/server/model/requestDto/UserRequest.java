@@ -12,8 +12,8 @@ public class UserRequest {
     private String firstName;
     private String lastName;
 
-    @NotBlank
-    private String email;
+    private String username;
+
     @NotBlank
     private String password;
 }

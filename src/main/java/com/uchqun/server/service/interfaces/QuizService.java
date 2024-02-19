@@ -20,4 +20,6 @@ public interface QuizService {
     List<QuizResponse> getVisibleQuizByTeacherId(Long teacherId);
     List<QuizResponse> getAllVisibleQuiz();
     ApiResponse updateQuestion(Long id, QuestionRequest questionRequest);
+
+    ApiResponse toggleVisible(Long id);
 }

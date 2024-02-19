@@ -13,4 +13,6 @@ public interface UserService {
 
     ApiResponse update(Long id, UserRequest user);
 
+    ApiResponse delete(Long id);
+    ApiResponse saveTeacher(UserRequest user);
 }

@@ -49,6 +49,7 @@ public class QuizServiceImpl implements QuizService {
     private Question makeQuestion(QuestionRequest teq, Quiz quiz) {
         Question question = new Question();
         question.setQuestion(teq.getQuestion());
+        pictureService.delete(question.getPicture().getId());
         question.setPicture(pictureService.save(teq.getPictureBase64()));
         if (checkVariants(teq.getOptions())) {
             throw new CustomBadRequestException("there is a problem with correct answers");
@@ -142,6 +143,14 @@ public class QuizServiceImpl implements QuizService {
     public ApiResponse updateQuestion(Long id, QuestionRequest questionRequest) {
         Question question = questionRepository.findById(id).orElseThrow(() -> new CustomNotFoundException("Question not found"));
         questionRepository.save(makeQuestion(questionRequest, question.getQuiz()));
+        return new ApiResponse("updated successfully", HttpStatus.OK);
+    }
+
+    @Override
+    public ApiResponse toggleVisible(Long id) {
+        Quiz quiz = getTestById(id);
+        quiz.setIsVisible(!quiz.getIsVisible());
+        quizRepository.save(quiz);
         return new ApiResponse("updated successfully", HttpStatus.OK);
     }
 }
