@@ -19,15 +19,16 @@ import java.util.List;
 public class OpenController {
     private final QuizService quizService;
 
-    @GetMapping("/visible/teacher")
-    public List<QuizResponse> getVisibleTestByTeacherId(@CurrentUser CustomUserDetails userDetails) {
-        return quizService.getVisibleQuizByTeacherId(userDetails.getId());
+    @GetMapping("/visible/teacher/{id}")
+    public List<QuizResponse> getVisibleTestByTeacherId(@PathVariable Long id) {
+        return quizService.getVisibleQuizByTeacherId(id);
     }
 
     @GetMapping("/all/visible")
     public List<QuizResponse> getAllVisibleTest() {
         return quizService.getAllVisibleQuiz();
     }
+
     @GetMapping("/{id}")
     public List<QuestionResponse> getTestItemList(@PathVariable Long id) {
         return quizService.getQuestionList(id);
