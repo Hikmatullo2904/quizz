@@ -24,18 +24,22 @@ public class UserServiceImp implements UserService {
 
     @Override
     public ApiResponse save(UserRequest user) {
+        Optional<User> byUsername = userRepository.findByUsername(user.getUsername());
+        if(byUsername.isPresent()){
+            return new ApiResponse("User already exist", HttpStatus.CONFLICT);
+        }
         User newUser = new User();
-        return saveUser(user, newUser);
+        newUser.setFirstName(user.getFirstName());
+        if(user.getLastName() != null)
+            newUser.setLastName(user.getLastName());
+        newUser.setUsername(user.getUsername());
+        newUser.setPassword(user.getPassword());
+        newUser.setRole(Role.TEACHER);
+        userRepository.save(newUser);
+        return new ApiResponse("User created", HttpStatus.OK);
     }
 
 
-
-    @Override
-    public ApiResponse saveTeacher(UserRequest user) {
-        User newUser = new User();
-        newUser.setRole(Role.ADMIN);
-        return saveUser(user, newUser);
-    }
 
     @Override
     public List<UserResponse> findAll() {
@@ -103,17 +107,5 @@ public class UserServiceImp implements UserService {
         };
     }
 
-    private ApiResponse saveUser(UserRequest user, User newUser) {
-        Optional<User> byUsername = userRepository.findByUsername(user.getUsername());
-        if(byUsername.isPresent()){
-            return new ApiResponse("User already exist", HttpStatus.CONFLICT);
-        }
-        newUser.setFirstName(user.getFirstName());
-        if(user.getLastName() != null)
-            newUser.setLastName(user.getLastName());
-        newUser.setUsername(user.getUsername());
-        newUser.setPassword(user.getPassword());
-        userRepository.save(newUser);
-        return new ApiResponse("User created", HttpStatus.OK);
-    }
+
 }

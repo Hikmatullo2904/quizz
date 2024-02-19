@@ -29,7 +29,7 @@ public class Quiz {
 
     private Long duration;
 
-    private Boolean isVisible;
+    private Boolean isVisible = true;
 
     @OneToMany(mappedBy = "quiz", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Question> questions = new ArrayList<>();

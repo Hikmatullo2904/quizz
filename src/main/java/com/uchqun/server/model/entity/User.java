@@ -38,7 +38,7 @@ public class User  {
     private List<Quiz> quizzes = new ArrayList<>();
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false, columnDefinition = "varchar(55) default 'USER'")
+    @Column(nullable = false)
     private Role role;
 
 }

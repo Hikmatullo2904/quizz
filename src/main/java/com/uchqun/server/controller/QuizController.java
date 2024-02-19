@@ -26,26 +26,12 @@ public class QuizController {
     }
 
 
-    @GetMapping("/{id}")
-    public List<QuestionResponse> getTestItemList(@PathVariable Long id) {
-        return quizService.getQuestionList(id);
-    }
 
     @GetMapping("/teacher")
     public List<QuizResponse> getTestByTeacherId(@CurrentUser CustomUserDetails userDetails) {
         return quizService.getQuizByTeacherId(userDetails.getId());
     }
 
-
-    @GetMapping("/visible/teacher")
-    public List<QuizResponse> getVisibleTestByTeacherId(@CurrentUser CustomUserDetails userDetails) {
-        return quizService.getVisibleQuizByTeacherId(userDetails.getId());
-    }
-
-    @GetMapping("/all/visible")
-    public List<QuizResponse> getAllVisibleTest() {
-        return quizService.getAllVisibleQuiz();
-    }
 
     @PostMapping
     public ApiResponse save(@CurrentUser CustomUserDetails userDetails, @RequestBody QuizRequest quizRequest) {

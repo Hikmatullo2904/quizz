@@ -8,6 +8,7 @@ import com.uchqun.server.service.interfaces.UserService;
 import com.uchqun.server.util.annotations.CurrentUser;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -33,12 +34,9 @@ public class UserController {
     }
 
     @PostMapping
+    @PreAuthorize("hasRole('SUPER_TEACHER')")
     public ApiResponse save(@Valid  @RequestBody UserRequest userRequest) {
         return userService.save(userRequest);
-    }
-    @PostMapping("/save-teacher")
-    public ApiResponse saveTeacher(@Valid @RequestBody UserRequest userRequest) {
-        return userService.saveTeacher(userRequest);
     }
 
     @PutMapping("/{id}")
@@ -48,6 +46,7 @@ public class UserController {
 
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('SUPER_TEACHER')")
     public ApiResponse delete(@PathVariable Long id) {
         return userService.delete(id);
     }

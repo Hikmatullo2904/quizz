@@ -22,12 +22,4 @@ public class AuthController {
         return authService.authenticate(loginRequest);
     }
 
-
-
-    @PostMapping("/register")
-    public JwtResponse register(@Valid @RequestBody UserRequest userRequest) {
-        return authService.register(userRequest);
-    }
-
-
 }
