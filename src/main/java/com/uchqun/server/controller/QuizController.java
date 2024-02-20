@@ -32,12 +32,8 @@ public class QuizController {
         return quizService.getQuizByTeacherId(user.getId());
     }
 
-    @GetMapping("/{id}")
-    public QuizResponse getQuizById(@PathVariable Long id) {
-        return quizService.getQuizById(id);
-    }
 
-    @GetMapping("/{id}/detailed")
+    @GetMapping("/{id}")
     public QuizDetailedResponse getDetailedQuizById(@PathVariable Long id) {
         return quizService.getDetailedQuiz(id);
     }

@@ -93,6 +93,7 @@ public class Mapper {
     public QuestionResponse mapToQuestionResponse(Question question) {
         QuestionResponse questionResponse = new QuestionResponse();
         questionResponse.setId(question.getId());
+        questionResponse.setQuestion(question.getQuestion());
         questionResponse.setOptions(mapToOptionResponseList(question.getOptions()));
         questionResponse.setPictureUrl(question.getPicture() == null ? null : this.pictureApi + question.getPicture().getId());
         return questionResponse;
