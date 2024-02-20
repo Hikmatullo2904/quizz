@@ -3,6 +3,7 @@ package com.uchqun.server.service.interfaces;
 import com.uchqun.server.model.requestDto.QuestionRequest;
 import com.uchqun.server.model.requestDto.QuizRequest;
 import com.uchqun.server.model.responseDto.QuestionResponse;
+import com.uchqun.server.model.responseDto.QuizDetailedResponse;
 import com.uchqun.server.model.responseDto.QuizResponse;
 import com.uchqun.server.payload.ApiResponse;
 
@@ -24,4 +25,5 @@ public interface QuizService {
     ApiResponse toggleVisible(Long id);
 
     QuizResponse getQuizById(Long id);
+    QuizDetailedResponse getDetailedQuiz(Long id);
 }

@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 public class QuizResponse {
     private Long id;
 
-    private String testName;
+    private String title;
 
     private int testItemsCount;
 

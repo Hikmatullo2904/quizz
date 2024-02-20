@@ -3,6 +3,7 @@ package com.uchqun.server.controller;
 import com.uchqun.server.model.entity.User;
 import com.uchqun.server.model.requestDto.QuestionRequest;
 import com.uchqun.server.model.requestDto.QuizRequest;
+import com.uchqun.server.model.responseDto.QuizDetailedResponse;
 import com.uchqun.server.model.responseDto.QuizResponse;
 import com.uchqun.server.payload.ApiResponse;
 import com.uchqun.server.service.interfaces.QuizService;
@@ -36,6 +37,10 @@ public class QuizController {
         return quizService.getQuizById(id);
     }
 
+    @GetMapping("/{id}/detailed")
+    public QuizDetailedResponse getDetailedQuizById(@PathVariable Long id) {
+        return quizService.getDetailedQuiz(id);
+    }
 
     @PostMapping
     public ApiResponse save(@CurrentUser User user , @RequestBody QuizRequest quizRequest) {

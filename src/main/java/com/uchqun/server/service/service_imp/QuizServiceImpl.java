@@ -8,6 +8,7 @@ import com.uchqun.server.model.requestDto.QuestionRequest;
 import com.uchqun.server.model.requestDto.QuizRequest;
 import com.uchqun.server.model.requestDto.OptionRequest;
 import com.uchqun.server.model.responseDto.QuestionResponse;
+import com.uchqun.server.model.responseDto.QuizDetailedResponse;
 import com.uchqun.server.model.responseDto.QuizResponse;
 import com.uchqun.server.payload.ApiResponse;
 import com.uchqun.server.repository.QuestionRepository;
@@ -74,7 +75,7 @@ public class QuizServiceImpl implements QuizService {
 
     @Override
     public ApiResponse updateQuiz(Long testId, QuizRequest quizRequest) {
-        Quiz quizById = getTestById(testId);
+        Quiz quizById = get(testId);
         if(quizRequest.getTitle() != null)
             quizById.setTitle(quizRequest.getTitle());
         if(quizRequest.getDescription() != null)
@@ -88,7 +89,7 @@ public class QuizServiceImpl implements QuizService {
 
     @Override
     public ApiResponse deleteQuiz(Long testId) {
-        Quiz quizById = getTestById(testId);
+        Quiz quizById = get(testId);
         for(Question question : quizById.getQuestions()) {
             Picture picture = question.getPicture();
             pictureService.delete(picture.getId());
@@ -96,6 +97,18 @@ public class QuizServiceImpl implements QuizService {
         quizById.setTeacher(null);
         quizRepository.delete(quizById);
         return new ApiResponse("Deleted successfully", HttpStatus.OK);
+    }
+
+    public QuizDetailedResponse getDetailedQuiz(Long id) {
+        Quiz quizById = get(id);
+        List<QuestionResponse> questionList = getQuestionList(id);
+        QuizDetailedResponse quizDetailedResponse = new QuizDetailedResponse();
+        quizDetailedResponse.setId(quizById.getId());
+        quizDetailedResponse.setTitle(quizById.getTitle());
+        quizDetailedResponse.setDescription(quizById.getDescription());
+        quizDetailedResponse.setIsVisible(quizById.getIsVisible());
+        quizDetailedResponse.setQuestions(questionList);
+        return quizDetailedResponse;
     }
 
     @Override
@@ -116,7 +129,7 @@ public class QuizServiceImpl implements QuizService {
         return mapper.mapToQuestionResponses(allByTestId);
     }
 
-    public Quiz getTestById(Long id) {
+    public Quiz get(Long id) {
         Optional<Quiz> byId = quizRepository.findById(id);
         if(byId.isPresent()) {
             return byId.get();
@@ -145,7 +158,7 @@ public class QuizServiceImpl implements QuizService {
 
     @Override
     public ApiResponse toggleVisible(Long id) {
-        Quiz quiz = getTestById(id);
+        Quiz quiz = get(id);
         quiz.setIsVisible(!quiz.getIsVisible());
         quizRepository.save(quiz);
         return new ApiResponse("updated successfully", HttpStatus.OK);
@@ -153,7 +166,7 @@ public class QuizServiceImpl implements QuizService {
 
     @Override
     public QuizResponse getQuizById(Long id) {
-        Quiz quiz = getTestById(id);
+        Quiz quiz = get(id);
         return mapper.mapToQuizResponse(quiz);
     }
 }

@@ -10,7 +10,10 @@ import java.util.List;
 @Setter
 public class QuestionResponse {
     private Long id;
+
     private String pictureUrl;
+
     private String question;
+
     private List<OptionResponse> options = new ArrayList<>();// <TestVariant>
 }

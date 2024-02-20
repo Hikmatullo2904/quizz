@@ -5,7 +5,6 @@ import com.uchqun.server.model.entity.Quiz;
 import com.uchqun.server.model.entity.Option;
 import com.uchqun.server.model.requestDto.QuizRequest;
 import com.uchqun.server.model.requestDto.OptionRequest;
-import com.uchqun.server.model.responseDto.StudentQuizResponse;
 import com.uchqun.server.model.responseDto.QuestionResponse;
 import com.uchqun.server.model.responseDto.QuizResponse;
 import com.uchqun.server.model.responseDto.OptionResponse;
@@ -67,10 +66,10 @@ public class Mapper {
                 .toList();
     }
 
-    public StudentQuizResponse mapToQuizResponse(@NotNull Quiz quiz) {
-        StudentQuizResponse testResponse = new StudentQuizResponse();
+    public QuizResponse mapToQuizResponse(@NotNull Quiz quiz) {
+        QuizResponse testResponse = new QuizResponse();
         testResponse.setId(quiz.getId());
-        testResponse.setTestName(quiz.getTitle());
+        testResponse.setTitle(quiz.getTitle());
         testResponse.setDescription(quiz.getDescription());
         testResponse.setIsVisible(quiz.getIsVisible());
         testResponse.setTestItemsCount(quiz.getQuestions().size());
@@ -95,7 +94,7 @@ public class Mapper {
         QuestionResponse questionResponse = new QuestionResponse();
         questionResponse.setId(question.getId());
         questionResponse.setOptions(mapToOptionResponseList(question.getOptions()));
-        questionResponse.setPictureUrl(this.pictureApi + question.getPicture().getId());
+        questionResponse.setPictureUrl(question.getPicture() == null ? null : this.pictureApi + question.getPicture().getId());
         return questionResponse;
     }
 
