@@ -17,9 +17,8 @@ public class QuestionRequest {
     @NotBlank
     private String question;
 
-    private String pictureBase64;
+    private String picture;
 
-    private MultipartFile picture;
 
     @NotNull
     private List<OptionRequest> options = new ArrayList<>();

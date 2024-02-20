@@ -27,8 +27,6 @@ public class Quiz {
 
     private String description;
 
-    private Long duration;
-
     private Boolean isVisible = true;
 
     @OneToMany(mappedBy = "quiz", fetch = FetchType.EAGER, cascade = CascadeType.ALL)

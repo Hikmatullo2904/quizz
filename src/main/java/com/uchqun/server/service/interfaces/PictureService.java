@@ -1,7 +1,7 @@
 package com.uchqun.server.service.interfaces;
 
 import com.uchqun.server.model.entity.Picture;
-import org.springframework.core.io.Resource;
+import org.springframework.core.io.FileUrlResource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -10,6 +10,6 @@ public interface PictureService {
 
     void delete(Long id);
 
-    ResponseEntity<Resource> get(Long id);
+    ResponseEntity<FileUrlResource> get(Long id);
     Picture save(MultipartFile image);
 }

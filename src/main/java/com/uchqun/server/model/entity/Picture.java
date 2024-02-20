@@ -21,6 +21,7 @@ public class Picture {
 
     private String name;
     private String type;
+    private String ext;
 
     private String path;
 

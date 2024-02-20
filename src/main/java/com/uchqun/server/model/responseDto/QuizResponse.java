@@ -20,8 +20,6 @@ public class QuizResponse {
 
     private String description;
 
-    private Long duration;
-
     private Boolean isVisible;
 
 }

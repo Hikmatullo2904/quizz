@@ -50,7 +50,7 @@ public class QuizServiceImpl implements QuizService {
         Question question = new Question();
         question.setQuestion(teq.getQuestion());
         question.setPicture(pictureService.save(teq.getPicture()));
-        if (checkVariants(teq.getOptions())) {
+        if (!checkVariants(teq.getOptions())) {
             throw new CustomBadRequestException("there is a problem with correct answers");
         }
         List<Option> variants = mapper.mapToOptionList(teq.getOptions());
@@ -79,8 +79,6 @@ public class QuizServiceImpl implements QuizService {
             quizById.setTitle(quizRequest.getTitle());
         if(quizRequest.getDescription() != null)
             quizById.setDescription(quizRequest.getDescription());
-        if(quizRequest.getDuration() != null)
-            quizById.setDuration(quizRequest.getDuration());
         if(quizRequest.getIsVisible() != null)
             quizById.setIsVisible(quizRequest.getIsVisible());
         quizRepository.save(quizById);

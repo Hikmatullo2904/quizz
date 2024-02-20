@@ -4,6 +4,7 @@ import com.uchqun.server.model.requestDto.LoginRequest;
 import com.uchqun.server.model.requestDto.UserRequest;
 import com.uchqun.server.model.responseDto.JwtResponse;
 import com.uchqun.server.service.interfaces.AuthService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,6 +21,11 @@ public class AuthController {
     @PostMapping("/login")
     public JwtResponse login(@RequestBody LoginRequest loginRequest) {
         return authService.authenticate(loginRequest);
+    }
+
+    @PostMapping("/refresh")
+    public JwtResponse refreshToken(HttpServletRequest request) {
+        return authService.generateAccessToken(request);
     }
 
 }

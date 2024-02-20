@@ -29,7 +29,6 @@ public class Mapper {
         Quiz quiz = new Quiz();
         quiz.setTitle(quizRequest.getTitle());
         quiz.setDescription(quizRequest.getDescription());
-        quiz.setDuration(quizRequest.getDuration());
         quiz.setIsVisible(quizRequest.getIsVisible());
         return quiz;
     }
@@ -73,7 +72,6 @@ public class Mapper {
         testResponse.setId(quiz.getId());
         testResponse.setTestName(quiz.getTitle());
         testResponse.setDescription(quiz.getDescription());
-        testResponse.setDuration(quiz.getDuration());
         testResponse.setIsVisible(quiz.getIsVisible());
         testResponse.setTestItemsCount(quiz.getQuestions().size());
         return testResponse;

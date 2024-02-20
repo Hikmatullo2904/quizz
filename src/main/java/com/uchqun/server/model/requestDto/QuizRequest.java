@@ -20,8 +20,6 @@ public class QuizRequest {
 
     private String description;
 
-    private Long duration;
-
     private Boolean isVisible;
 
     private List<QuestionRequest> questions = new ArrayList<>();

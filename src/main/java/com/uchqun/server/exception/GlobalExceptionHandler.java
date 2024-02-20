@@ -28,4 +28,13 @@ public class GlobalExceptionHandler {
     public ApiErrorResponse badRequest(CustomBadRequestException e) {
         return new ApiErrorResponse(e.getMessage(), HttpStatus.BAD_REQUEST, LocalDateTime.now());
     }
+
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    @ExceptionHandler(InvalidTokenException.class)
+    public ApiErrorResponse invalidToken(InvalidTokenException e) {
+        return new ApiErrorResponse(e.getMessage(), HttpStatus.BAD_REQUEST, LocalDateTime.now());
+    }
+
+
+
 }
