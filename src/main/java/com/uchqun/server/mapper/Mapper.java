@@ -29,6 +29,7 @@ public class Mapper {
         quiz.setTitle(quizRequest.getTitle());
         quiz.setDescription(quizRequest.getDescription());
         quiz.setIsVisible(quizRequest.getIsVisible());
+
         return quiz;
     }
 
@@ -73,6 +74,7 @@ public class Mapper {
         testResponse.setDescription(quiz.getDescription());
         testResponse.setIsVisible(quiz.getIsVisible());
         testResponse.setTestItemsCount(quiz.getQuestions().size());
+        testResponse.setTeacherName(quiz.getTeacher().getFirstName() + " " + quiz.getTeacher().getLastName());
         return testResponse;
     }
 

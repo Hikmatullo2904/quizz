@@ -21,5 +21,6 @@ public class QuizResponse {
     private String description;
 
     private Boolean isVisible;
+    private String teacherName;
 
 }
