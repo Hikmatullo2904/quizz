@@ -143,6 +143,8 @@ public class PictureServiceImp implements PictureService {
 
     @Override
     public void delete(Long id) {
+        if(id == null)
+            return;
         Picture picture = pictureRepository.findById(id).orElseThrow(() -> new CustomNotFoundException("Picture not found"));
         String path = picture.getPath();
         File file = new File(path);

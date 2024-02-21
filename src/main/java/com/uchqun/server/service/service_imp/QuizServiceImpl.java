@@ -92,7 +92,7 @@ public class QuizServiceImpl implements QuizService {
         Quiz quizById = get(testId);
         for(Question question : quizById.getQuestions()) {
             Picture picture = question.getPicture();
-            pictureService.delete(picture.getId());
+            pictureService.delete(picture == null ? null : picture.getId());
         }
         quizById.setTeacher(null);
         quizRepository.delete(quizById);
